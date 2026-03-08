@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<meta charset="UTF-8">
+<title>Свадебное приглашение</title>
+<link rel="preload" as="image" href="date.jpg">
+
+<style>
+
+    @font-face{
+font-family: kosolapa;
+src: url("KosolapaScript.ttf");
+}
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(#f6efe5,#eadcc7);
+font-family:serif;
+overflow:hidden;
+}
+
+/* стартовый экран */
+
+#start{
+text-align:center;
+}
+
+.castle{
+width:260px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.castle:hover{
+transform:scale(1.05);
+}
+
+/* ворота */
+
+#doors{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+display:none;
+z-index:10;
+}
+
+.door{
+position:absolute;
+top:0;
+width:50%;
+height:100%;
+background:linear-gradient(#d4af37,#b8963e);
+transition:2s;
+}
+
+.left{ left:0; }
+.right{ right:0; }
+
+.open .left{
+transform:translateX(-100%);
+}
+
+.open .right{
+transform:translateX(100%);
+}
+
+/* контент */
+
+#content{
+display:none;
+text-align:center;
+}
+
+.invite{
+max-width:90vw;
+max-height:90vh;
+height:auto;
+width:auto;
+border-radius:12px;
+box-shadow:0 10px 40px rgba(0,0,0,0.25);
+}
+
+/* кнопка далее */
+
+#nextBtn{
+position:fixed;
+bottom:30px;
+right:30px;
+padding:14px 28px;
+font-size:18px;
+border:none;
+background:#8b6b47;
+color:white;
+border-radius:10px;
+cursor:pointer;
+display:none;
+box-shadow:0 5px 20px rgba(0,0,0,0.25);
+}
+
+.title{
+font-family:kosolapa;
+font-size:42px;
+color:#8b6b47;
+margin-bottom:30px;
+}
+
+#nextBtn:hover{
+background:#6d5236;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- звуки -->
+
+<audio id="doorSound">
+<source src="door.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="nextSound">
+<source src="next.mp3" type="audio/mpeg">
+</audio>
+
+<!-- старт -->
+
+<div id="start">
+
+<h2 class="title">Нажмите на замок</h2>
+
+<img src="castle.png" class="castle" onclick="openDoors()">
+
+</div>
+
+<!-- ворота -->
+
+<div id="doors">
+
+<div class="door left"></div>
+<div class="door right"></div>
+
+</div>
+
+<!-- контент -->
+
+<div id="content">
+
+<img id="inviteImage" src="dress.jpg" class="invite">
+
+</div>
+
+<button id="nextBtn" onclick="nextImage()">Далее →</button>
+
+<script>
+
+function openDoors(){
+
+document.getElementById("doorSound").play();
+
+document.getElementById("start").style.display="none";
+
+let doors=document.getElementById("doors");
+
+doors.style.display="block";
+
+setTimeout(()=>{
+doors.classList.add("open");
+},100);
+
+setTimeout(()=>{
+
+doors.style.display="none";
+
+document.getElementById("content").style.display="block";
+
+document.getElementById("nextBtn").style.display="block";
+
+},2000);
+
+}
+
+function nextImage(){
+
+let img=document.getElementById("inviteImage");
+
+document.getElementById("nextSound").play();
+
+img.src="date.jpg";
+
+img.style.opacity="0";
+
+setTimeout(()=>{
+img.style.opacity="1";
+},50);
+
+document.getElementById("nextBtn").style.display="none";
+
+}
+
+</script>
+
+</body>
+</html>
